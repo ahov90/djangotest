@@ -1,6 +1,6 @@
 #!/usr/bin/python3.5
 # -*- coding: UTF-8 -*-
-max=input('enter max value: ',) #检查UTF-8的工作
+max=input('enter max value: ',) #中国的汉字 check UTF-8 
 try:
     max=int(max)
     for i in range(1,max+1):
