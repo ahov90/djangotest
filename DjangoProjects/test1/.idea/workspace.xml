@@ -2,29 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c1748272-6674-47c2-a5a5-0b413f2c32ca" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Postgres Django settings" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/test1.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/manage.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/page/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/page/admin.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/page/apps.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/page/migrations/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/page/models.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/page/tests.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/page/views.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test1/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test1/settings.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test1/urls.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test1/wsgi.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../github_setting" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../pyramida" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../testing/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../testing/pyramida" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../README.md" afterPath="$PROJECT_DIR$/../../README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/manage.py" afterPath="$PROJECT_DIR$/manage.py" />
     </list>
     <ignored path="test1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -44,11 +22,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test1/settings.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="259">
               <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="manage.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/manage.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="22" column="20" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -64,6 +52,7 @@
       <list>
         <option value="$USER_HOME$/PycharmProjects/test.py" />
         <option value="$PROJECT_DIR$/test1/settings.py" />
+        <option value="$PROJECT_DIR$/manage.py" />
       </list>
     </option>
   </component>
@@ -388,6 +377,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="259">
           <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="22" column="20" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
           <folding />
         </state>
       </provider>
