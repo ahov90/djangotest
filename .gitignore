@@ -1,3 +1,4 @@
 .idea/
 github_setting
 /DjangoProjects/Postgres_Django_settings
+/__pycache__
