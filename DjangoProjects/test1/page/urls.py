@@ -18,5 +18,8 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^$', views.statistics, name='statistics')
-]
+    url(r'^$', views.statistics, name='statics'),
+    url(r'^articles/$', views.article, name='articles'),
+    url(r'^reporters/(?P<id>\w+)/$', views.reporter, name='reporters'),
+    url(r'^persons/(?P<id>[a-zA-Z]+)/$', views.person, name='persones')
+    ]

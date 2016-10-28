@@ -21,7 +21,5 @@ from page import views
 urlpatterns = [
     url(r'^$', views.index, name="index"),
     url(r'^admin/', admin.site.urls),
-    url(r'^articles/$', views.article, name='articles'),
-    url(r'^reporters/$', views.reporter, name='reporters'),
-    url(r'^try/statistics/', include('page.urls'))
+    url(r'^page/', include('page.urls'))
 ]
