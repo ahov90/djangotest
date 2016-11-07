@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}{{out_list.0.full_name}}{% endblock %}
+{% block main %}
+
+    {% for item in out_list %}
+        {% if forloop.first %}
+           <ul>
+           <h3>Reporter:</h3>
+           <li><b><a href = '/page/reporters/{{ item.id }}/'>{{ item }} </a></b></li>
+           <h3>Articles:</h3>
+        {% endif %}
+        {% if not forloop.first %}
+               <li>Article headline: <a href = "/page/articles/{{ item.id }}/">
+               <i>{{item.headline}}</i></a><br>
+               <li>Article publication date:
+               <i>{{item.pub_date}}</i><p>
+        {% endif %}
+        {% if forloop.last %}
+           </ul>
+        {% endif %}
+    {% endfor %}
+    <a href = '/page/reporters/'><h4>All reporters</h4></a>
+{% endblock %}

@@ -1,0 +1,47 @@
+@charset "utf-8"
+body {
+  margin: 0px
+  padding: 0px
+}
+#header {
+    text-align: center;
+    border: 1px #cccccc solid;
+    background-color: #3366CC
+    }
+
+#content {
+    overflow: hidden;
+    relative: top;
+    position: relative;
+    background-color: #F4A460;
+
+    }
+
+#leftmenu {
+    float: left;
+    width: 200px;
+    font-size:9pt;
+    background-color: #C0C0C0
+    }
+
+#main {
+     margin-left: 210px;
+     border: 1px #cccccc solid;
+     background-color: #7FFFD4
+     }
+
+#footer {
+    text-align: center;
+    border: 1px #cccccc solid;
+    background-color: #FFFF00
+    }
+
+#page_number {
+    position:absolute;
+    top:0;
+    right:0;
+    width: 200px;
+    text-align: center;
+    border: 1px #cccccc solid;
+    background-color: #7FFF00
+    }

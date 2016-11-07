@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}All articles{% endblock %}
+{% block main %}
+    <ul>
+    <h3>Articles:</h3>
+
+    {% for item in out_list %}
+           <li><b><a href = '/page/articles/{{ item.id }}/'>{{ item.headline }} </a></b><i>{{ item.pub_date }}</i></li>
+    {% endfor %}
+     </ul>
+ {% endblock %}

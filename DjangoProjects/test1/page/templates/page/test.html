@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}All we have{% endblock %}
+{% block main %}
+
+{{ test_list }}<p>
+
+
+<b><a href = "{% url 'page_app:test' test_list.2  %}?id={{test_list.0}}&page_num={{test_list.1}}">look at link</a></b>
+
+{% endblock %}

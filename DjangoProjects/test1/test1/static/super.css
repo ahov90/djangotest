@@ -1,0 +1,9 @@
+@charset "utf-8"
+body {
+  margin: 0px
+  padding: 0px
+}
+#header {text-align: center; border: 1px #cccccc solid; background-color: #3366CC}
+#leftmenu {position: absolute; left: 0;width: 200px; padding-right: 10px; font-size:9pt; border: 1px #cccccc solid}
+#main { margin-left: 210px; border: 1px #cccccc solid; padding: 10px }
+#footer {position: absolute; bottom: 0; right:0; text-align: center; border: 1px #cccccc solid; padding-right: 10px; height: 20px}

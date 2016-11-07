@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}All reporters{% endblock %}
+{% block main %}
+    <ul>
+    <h3>Reporters:</h3>
+
+    {% for item in out_list %}
+           <li><b><a href = "{% url 'page_app:reporter' item.id %}">{{ item.full_name }} </a></b></li>
+    {% endfor %}
+{% endblock %}

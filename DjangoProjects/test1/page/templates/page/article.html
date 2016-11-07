@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}{{art.headline}}{% endblock %}
+{% block main %}
+           <ul>
+           <h3>Article:&nbsp;{{ art.headline }}</h3>
+           <i></i>Published&nbsp;{{ art.pub_date }}&nbsp;</i>
+           <b>Written by:<a href = "{% url 'page_app:reporter' art.reporter.id %}">{{ art.reporter }}</a></b>
+           <p><i>{{art.content}}</i>
+           <h3>Persons mentioned in the article {{ art.headline }}:</h3>
+     {% if not pers_list %}
+               <b>No persons mentioned</b>
+     {%endif%}
+
+     {% for item in pers_list %}
+
+        {% include "page/person_up.html"  %}<p>
+
+           </ul>
+     {% endfor %}
+
+ <a href = "{% url 'page_app:article' %}" ><h4>All articles</h4></a>
+
+     <div id="page_number">
+          {% if pers_list.has_previous %}
+             <b><a href = "{% url 'page_app:article' art.id  %}/{{pers_list.previous_page_number}}">&lt;&nbsp;{{pers_list.previous_page_number}}</a></b>
+          {% endif %}
+          {% if pers_list.paginator.num_pages > 1 %}
+             &nbsp;&nbsp;&nbsp;{{pers_list.number}}&nbsp;&nbsp;&nbsp;
+          {% endif %}
+          {% if pers_list.has_next %}
+             <b><a href = "{% url 'page_app:article' art.id  %}/{{pers_list.next_page_number}}">{{pers_list.next_page_number}}&nbsp;&gt;</a></b>
+          {% endif %}
+     </div>
+{% endblock %}
+

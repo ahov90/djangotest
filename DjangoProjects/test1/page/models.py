@@ -15,16 +15,16 @@ class Article(models.Model):
     content = models.TextField()
     reporter = models.ForeignKey(Reporter, on_delete=models.CASCADE)
     def __str__(self):
-        out_str=self.headline+' <-- '+self.reporter.full_name
+        out_str=self.headline
         return out_str
 
 
 class Person (models.Model):
     name = models.CharField(max_length=70)
-    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    article = models.ManyToManyField(Article)
     born = models.DateField()
     def __str__(self):
-        out_str = self.name+' <-- '+self.article.headline+' <-- '+self.article.reporter.full_name
+        out_str = self.name
         return out_str
 
 

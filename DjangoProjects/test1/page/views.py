@@ -1,64 +1,128 @@
 from django.shortcuts import render
 from .models import Article, Reporter, Person
-from django.http import HttpResponse
-from django.http import Http404
+from django.core.paginator import Paginator, InvalidPage, PageNotAnInteger
 import datetime
 
 # Create your views here.
 
+def test (request, test_id):
 
-def article(request):
-    a_list = Article.objects.all()
-    str_out=''
-    for i in a_list:
-        str_out+=i.headline+' '
-    return HttpResponse(str_out)
+    test_list=[]
 
-def reporter(request, id):
-    a_list = Reporter.objects.all()
-    str_out=''
-    for i in a_list:
-        str_out+=i.full_name+' '+id+ ' '
-    return HttpResponse(str_out)
+    all_list=[]
+    all_list.append(Reporter.objects.all())
+    all_list.append(Article.objects.all())
+    all_list.append(Person.objects.all())
+
+    test_list.append(test_id)
+    try:
+        get_par=request.GET['id']
+        get_par=str(get_par)
+        test_list.append(get_par)
+    except: pass
+    try:
+        get_par=request.GET['page_num']
+        get_par=str(get_par)
+        test_list.append(get_par)
+    except: pass
+
+    context = {'test_list': test_list, 'all_list': all_list}
+    return render(request, 'page/test.html', context)
+
+def article(request, id_art, page_num):
+
+    all_list=[]
+    all_list.append(Reporter.objects.all())
+    all_list.append(Article.objects.all())
+    all_list.append(Person.objects.all())
+
+    pers_list=[]
+
+    try:
+        art = Article.objects.get(id=id_art)
+    except:
+        art_list = Article.objects.all()
+        context = {'out_list': art_list, 'all_list':all_list}
+        return render(request, 'page/all_articles.html', context)
+
+    pers_set = art.person_set.all()
+
+    for item in pers_set:
+        item.age = str(age(item.born))
+        pers_list.append(item)
+
+    pag = Paginator(pers_list,2)
+    try:
+        pagined=pag.page(page_num)
+    except InvalidPage:
+        pagined=pag.page(1)
+
+    context = {'all_list':all_list, 'art': art, 'pers_list': pagined }
+    return render(request, 'page/article.html', context)
+
+
+def reporter(request, id_rep=0):
+    all_list=[]
+    all_list.append(Reporter.objects.all())
+    all_list.append(Article.objects.all())
+    all_list.append(Person.objects.all())
+    out_list = []
+    try:
+        rep = Reporter.objects.get(id=id_rep)
+    except:
+        out_list = Reporter.objects.all()
+        context = {'out_list': out_list , 'all_list':all_list}
+        return render(request, 'page/all_reporters.html', context)
+    out_list.append(rep)
+    art_set = rep.article_set.all()
+    for item in art_set:
+        out_list.append(item)
+    context = {'out_list': out_list, 'all_list':all_list}
+    return render(request, 'page/reporter.html', context)
 
 def index(request):
-    return HttpResponse("Hello, world. This is INDEX")
+    all_list=[]
+    all_list.append(Reporter.objects.all())
+    all_list.append(Article.objects.all())
+    all_list.append(Person.objects.all())
+    context = {'all_list': all_list}
+    return render(request, 'page/index.html', context)
 
-def person(request, id):
-    persons_all = Person.objects.all()
-    out_list=[]
-    out_list.append('You entered ' + id )
-    out_list.append('Coincides with:')
-    k=1
-    for item in persons_all:
-        item_name = item.name.lower()
-        if id.lower() in item_name.split(' '):
-            k=0
-            pers_age = str(age(item.born))
-            out_list.append(item.name)
-            out_list.append(pers_age)
-            out_list.append(item.article.headline)
-            out_list.append(item.article.reporter.full_name)
-           # str_out += 'Name: '+pers_name+'<p> Years old: '+ pers_age +'<p> Mentioned in article: ' +\
-             #         str(item.article.headline) + '<p>Written by: '+ str(item.article.reporter.full_name)+'<p>'
-    if k: raise Http404("Question does not exist")
-    context = {'out_list': out_list}
+def person(request, id_pers, page_num):
+    all_list=[]
+    all_list.append(Reporter.objects.all())
+    all_list.append(Article.objects.all())
+    all_list.append(Person.objects.all())
+    try:
+        pers = Person.objects.get(id=id_pers)
+    except:
+        out_list = Person.objects.all()
+        context = {'out_list': out_list, 'all_list':all_list}
+        return render(request, 'page/all_persons.html', context)
+    pers.age = str(age(pers.born))
+    pers_arts = pers.article.order_by('pub_date')
+
+    pag = Paginator(pers_arts,2)
+    try:
+        pagined=pag.page(page_num)
+    except InvalidPage:
+        pagined=pag.page(1)
+
+    context = {'item': pers, 'all_list':all_list, 'pers_arts':pagined}
     return render(request, 'page/person.html', context)
 
 
-def statistics(request):
-    a_list = Article.objects.all()
-    arts=0
-    for i in a_list: arts+=1
-    a_list=Reporter.objects.all()
-    reps=0
-    for i in a_list: reps+=1
-    str_out='Reporters: '+str(arts)+' Articles: '+str(reps)
-    return HttpResponse(str_out)
-
 def age (born):
-# born has datetime format, like datetime.date(2011,2,1)
+# born has datetime format, like datetime.date(2011,12,31)
     today = datetime.date.today()
     return int((today.year - born.year) + ((today.month > born.month) or
     ((today.month == born.month) and (today.day >= born.day))))
+
+
+
+
+
+
+
+
 

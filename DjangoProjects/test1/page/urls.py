@@ -16,10 +16,14 @@ Including another URLconf
 from django.conf.urls import url
 from . import views
 
-
+app_name = 'page_app'
 urlpatterns = [
-    url(r'^$', views.statistics, name='statics'),
-    url(r'^articles/$', views.article, name='articles'),
-    url(r'^reporters/(?P<id>\w+)/$', views.reporter, name='reporters'),
-    url(r'^persons/(?P<id>[a-zA-Z]+)/$', views.person, name='persones')
+
+    url(r'^articles/(?P<id_art>\d+)?/?(?P<page_num>\d+)?/?$', views.article, name='article'),
+    url(r'^reporters/$', views.reporter, name='reporters'),
+    url(r'^reporters/(?P<id_rep>.*)/$', views.reporter, name='reporter'),
+    url(r'^persons/(?P<id_pers>\d+)?/?(?P<page_num>\d+)?/?$', views.person, name='persone'),
+    url(r'^test/(.*)/$', views.test, name='test'),
+    url(r'^.*$', views.index, name='index')
     ]
+#url(r'^articles/$', views.article, name='articles'),

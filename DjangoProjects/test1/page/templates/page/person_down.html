@@ -1,0 +1,25 @@
+
+
+    <h4>Mentioned in the articles:</h4>
+    {%if not pers_arts%}
+    <b><font color = red>no article about this person</font></b>
+    {%endif%}
+    {% for subj in pers_arts %}
+       <li><i> Article name:&nbsp;</i><a href = "{% url 'page_app:article' subj.id %}">{{ subj }}</a><i>, published {{subj.pub_date}}</i></li>
+       <li><i>By reporter:&nbsp;</i><a href = '/page/reporters/{{ item.id }}/'>{{ subj.reporter.full_name }}</a>&nbsp;</li>
+       <p>
+    {% endfor %}
+
+    <div id="page_number">
+          {% if pers_arts.has_previous %}
+             <b><a href = "{% url 'page_app:persone' item.id  %}/{{pers_arts.previous_page_number}}">&lt;&nbsp;{{pers_arts.previous_page_number}}</a></b>
+          {% endif %}
+          {% if pers_arts.paginator.num_pages > 1 %}
+             &nbsp;&nbsp;&nbsp;{{pers_arts.number}}&nbsp;&nbsp;&nbsp;
+          {% endif %}
+          {% if pers_arts.has_next %}
+             <b><a href = "{% url 'page_app:persone' item.id  %}/{{pers_arts.next_page_number}}">{{pers_arts.next_page_number}}&nbsp;&gt;</a></b>
+          {% endif %}
+     </div>
+
+       <a href = "{% url 'page_app:persone' %}"><h4>All persons</h4><a>

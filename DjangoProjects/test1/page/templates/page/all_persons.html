@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}All persons{% endblock %}
+{% block main %}
+    <ul>
+    <h3>All persons:</h3>
+
+    {% for item in out_list %}
+           <li><b><a href = '/page/persons/{{ item.id }}/'>{{ item.name }} </a></b></li>
+    {% endfor %}
+ {% endblock %}
