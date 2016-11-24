@@ -3,3 +3,4 @@ github_setting
 /DjangoProjects/Postgres_Django_settings
 __pycache__/
 *.pyc
+survey/

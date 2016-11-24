@@ -2,9 +2,13 @@
 {% block title %}All reporters{% endblock %}
 {% block main %}
     <ul>
-    <h3>Reporters:</h3>
+    <h3>All reporters, who started to work at <i>{{year|date:'Y'}}</i></h3>
 
-    {% for item in out_list %}
-           <li><b><a href = "{% url 'page_app:reporter' item.id %}">{{ item.full_name }} </a></b></li>
+    {% for item in object_list %}
+           <li><b><a href = "{% url 'page_app:reporter' item.id %}">{{ item.full_name }} </a></b>
+           started to work {{item.work_begin|date:'j.E.Y'}}
+
+
+           </li>
     {% endfor %}
 {% endblock %}

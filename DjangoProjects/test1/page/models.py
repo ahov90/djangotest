@@ -6,6 +6,11 @@ from django.db import models
 
 class Reporter(models.Model):
     full_name = models.CharField(max_length=70)
+    weight = models.IntegerField()
+    height = models.IntegerField()
+    wage = models.IntegerField()
+    work_begin = models.DateField()
+
     def __str__(self):
         return self.full_name
 
@@ -26,6 +31,7 @@ class Person (models.Model):
     def __str__(self):
         out_str = self.name
         return out_str
+
 
 
 

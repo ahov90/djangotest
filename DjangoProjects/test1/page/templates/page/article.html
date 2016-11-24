@@ -22,13 +22,13 @@
 
      <div id="page_number">
           {% if pers_list.has_previous %}
-             <b><a href = "{% url 'page_app:article' art.id  %}/{{pers_list.previous_page_number}}">&lt;&nbsp;{{pers_list.previous_page_number}}</a></b>
+             <b><a href = "{% url 'page_app:article' art.id  %}/{{pers_list.previous_page_number}}/">&lt;&nbsp;{{pers_list.previous_page_number}}</a></b>
           {% endif %}
           {% if pers_list.paginator.num_pages > 1 %}
              &nbsp;&nbsp;&nbsp;{{pers_list.number}}&nbsp;&nbsp;&nbsp;
           {% endif %}
           {% if pers_list.has_next %}
-             <b><a href = "{% url 'page_app:article' art.id  %}/{{pers_list.next_page_number}}">{{pers_list.next_page_number}}&nbsp;&gt;</a></b>
+             <b><a href = "{% url 'page_app:article' art.id  %}/{{pers_list.next_page_number}}/">{{pers_list.next_page_number}}&nbsp;&gt;</a></b>
           {% endif %}
      </div>
 {% endblock %}

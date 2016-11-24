@@ -1,0 +1,15 @@
+
+<h2>CBV test</h2>
+
+{% for item in the_list %}
+         <li><b>{{ item}}</b></li>
+{% endfor %}
+<p>
+<p>
+{% for item in all_list %}
+     {% for elem in item %}
+         <li><b>{{ elem }}</b></li>
+     {% endfor %}
+<p>
+<p>
+{% endfor %}

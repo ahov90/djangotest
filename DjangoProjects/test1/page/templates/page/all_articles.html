@@ -4,7 +4,7 @@
     <ul>
     <h3>Articles:</h3>
 
-    {% for item in out_list %}
+    {% for item in latest %}
            <li><b><a href = '/page/articles/{{ item.id }}/'>{{ item.headline }} </a></b><i>{{ item.pub_date }}</i></li>
     {% endfor %}
      </ul>

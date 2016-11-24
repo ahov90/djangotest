@@ -14,16 +14,25 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
+
+
 from . import views
 
 app_name = 'page_app'
 urlpatterns = [
-
-    url(r'^articles/(?P<id_art>\d+)?/?(?P<page_num>\d+)?/?$', views.article, name='article'),
-    url(r'^reporters/$', views.reporter, name='reporters'),
-    url(r'^reporters/(?P<id_rep>.*)/$', views.reporter, name='reporter'),
-    url(r'^persons/(?P<id_pers>\d+)?/?(?P<page_num>\d+)?/?$', views.person, name='persone'),
-    url(r'^test/(.*)/$', views.test, name='test'),
+    url(r'^articles/?$', views.AllArticleView.as_view(), name='articles'),
+    url(r'^articles/(?P<id_art>\d+)?/?(?P<page_num>\d+)?/?$', views.ArticleView.as_view(template_name = 'page/article.html'), name='article'),
+    url(r'^reporters/$', views.AllReporterView.as_view(), name='reporters'),
+    url(r'^reporters/(?P<id_rep>.*)/$', views.ReporterView.as_view(), name='reporter'),
+    url(r'^persons/?$', views.AllPersonView.as_view(template_name = 'page/all_persons.html'), name='persones'),
+    url(r'^persons/(?P<id_pers>\d+)?/?(?P<page>\d+)?/?$', views.PersonView.as_view(template_name = 'page/person.html'), name='persone'),
+    # неименованная группа. Соответствует закомментированной строке в TestView self.test_list.append(self.args[0])
+    #args и kwargs нельзя реализовывать в одной url. Для запуска неименованной группы надо ее раскоментировать и
+    # закомментировать расположенную ниже
+    #url(r'^testing/(\d+)/$', views.TestView.as_view(), name='testing'),
+    url(r'^testing/(?P<test>\d+)/$', views.TestView.as_view(), name='testing'),
+    url(r'^cbv/$',  views.CbvView.as_view(template_name = 'page/cbv.html'), name='cbv'),
     url(r'^.*$', views.index, name='index')
     ]
-#url(r'^articles/$', views.article, name='articles'),
+
+#(?P<test>.*)/
