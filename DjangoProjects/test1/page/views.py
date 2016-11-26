@@ -2,12 +2,26 @@ from django.shortcuts import render
 from .models import Article, Reporter, Person
 from django.core.paginator import Paginator, InvalidPage, PageNotAnInteger
 import datetime
-from django.views.generic.base import TemplateView
+from django.views.generic.base import TemplateView, ContextMixin
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.dates import ArchiveIndexView, YearArchiveView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView, ProcessFormView
+from django.core.urlresolvers import reverse, reverse_lazy
+
+class AllListMixin (ContextMixin):
+    def get_context_data (self, **kwargs):
+       context = super(AllListMixin, self).get_context_data(**kwargs)
+       context['all_list'] = whole_list()
+       return context
+
 
 # Create your views here.
+
+
+
+
+
 '''
 def test (request, test_id):
     all_list = whole_list()
@@ -83,13 +97,14 @@ class ArticleView(TemplateView):
         return context
 
 
-class AllArticleView(ArchiveIndexView):
+class AllArticleView(ArchiveIndexView, AllListMixin):
     template_name = 'page/all_articles.html'
     model = Article
     date_field = 'pub_date'
+
     def get_context_data(self, **kwargs):
         context = super(AllArticleView, self).get_context_data(**kwargs)
-        context['all_list'] = whole_list()
+        #context['all_list'] = whole_list() вынесено в класс AllListMixin
         return context
 '''
 class ReporterView(TemplateView):
@@ -136,7 +151,7 @@ class AllReporterView(YearArchiveView):
     date_field = 'work_begin'
     make_object_list = True
     #object_list = 'out_list' # не работает сцуко, можно только object_list в  шаблоне
-    year = '2016'  #можно сделать 2015, будет 1 репортер
+    year = '2015'  #можно сделать 2015, будет 1 репортер
 
     def get_context_data (self, **kwargs):
        context = super(AllReporterView, self).get_context_data(**kwargs)
@@ -169,7 +184,7 @@ def index(request):
     return render(request, 'page/index.html', context)
 
 
-class PersonView(ListView):
+class PersonView(ListView, AllListMixin):
 
     def get (self, request, *args, **kwargs):
         self.pers = Person.objects.get(id=self.kwargs['id_pers'])
@@ -184,7 +199,7 @@ class PersonView(ListView):
     def get_context_data (self, **kwargs):
        context = super(PersonView, self).get_context_data(**kwargs)
        context['item']=self.pers
-       context['all_list'] = whole_list()
+      # context['all_list'] = whole_list() вынесено в класс AllListMixin
        return context
 
 
@@ -239,5 +254,63 @@ class CbvView(ListView):
 '''
 
 
+'''
+class RepEditMixin (AllListMixin):
+    def get_context_data(self,**kwargs):
+        context = super(RepEditMixin, self).get_context_data(**kwargs)
+
+        return context
+
+class RepEditView (ProcessFormView):
+    def post (self, request, *args, **kwargs):
+
+        return super(RepEditView, self).post(request, *args, **kwargs)
+'''
+class RepCreate (CreateView):
+    model = Reporter
+    fields = ['full_name', 'weight', 'height', 'wage', 'work_begin']
+    template_name = 'page/rep_add.html'
+    #success_url = reverse_lazy('page_app:reporters') взаимозаменяемо с self.success_url из def post
+    '''
+    def get (self, request, *args, **kwargs):   #нужна только для initial значенией в полях
+        self.initial['full_name'] = 'New reporter name'
+        return super(RepCreate, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        #  self.success_url = reverse('page_app:reporter') #не работает с kwargs
+        return super(RepCreate, self).post(request, *args, **kwargs)'''
+
+    def get_context_data(self, **kwargs):
+        context = super(RepCreate, self).get_context_data(**kwargs)
+        context['all_list'] = whole_list()
+        return context
+
+    def get_success_url(self):
+        return reverse('page_app:reporter', kwargs={'id_rep': self.object.id})
 
 
+class RepUpdate(UpdateView):
+    model = Reporter
+    fields = ['full_name', 'weight', 'height', 'wage', 'work_begin']
+    template_name = 'page/rep_update.html'
+    pk_url_kwarg = 'id_rep'
+
+    def get_context_data(self, **kwargs):
+        context = super(RepUpdate, self).get_context_data(**kwargs)
+        context['all_list'] = whole_list()
+        return context
+
+    def get_success_url(self):
+        return reverse('page_app:reporter', kwargs={'id_rep': self.object.id})
+
+class RepDelete(DeleteView):
+    model = Reporter
+    fields = ['full_name', 'weight', 'height', 'wage', 'work_begin']
+    template_name = 'page/rep_delete.html'
+    pk_url_kwarg = 'id_rep'
+    success_url = reverse_lazy('page_app:reporters')
+
+    def get_context_data(self, **kwargs):
+        context = super(RepDelete, self).get_context_data(**kwargs)
+        context['all_list'] = whole_list()
+        return context

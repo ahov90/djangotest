@@ -22,6 +22,7 @@
     {% for item in all_list.0 %}
          <li><b><a href = '/page/reporters/{{ item.id }}/'>{{ item.full_name }} </a></b></li>
     {% endfor %}
+          <li><b><a href = '{% url "page_app:reporter_add" %}'>add new reporter</a></b></li>
     <h3>Articles:</h3>
     {% for item in all_list.1 %}
          <li><b><a href = '/page/articles/{{ item.id }}/'>{{ item.headline }} </a></b></li>

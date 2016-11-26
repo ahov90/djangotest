@@ -25,6 +25,8 @@
     {% endfor %}
 
   <ul><a href = '/page/reporters/'><h4>All reporters</h4></a></ul>
+ <ul> <a href = "{% url 'page_app:reporter_update' reporter.id %}"><i>Update</i></a></ul>
+ <ul> <a href = "{% url 'page_app:reporter_delete' reporter.id %}"><i>Delete</i></a></ul>
 {% endblock %}
 
 

@@ -32,7 +32,9 @@ urlpatterns = [
     #url(r'^testing/(\d+)/$', views.TestView.as_view(), name='testing'),
     url(r'^testing/(?P<test>\d+)/$', views.TestView.as_view(), name='testing'),
     url(r'^cbv/$',  views.CbvView.as_view(template_name = 'page/cbv.html'), name='cbv'),
+    url((r'^add/reporters/$'), views.RepCreate.as_view(), name='reporter_add'),
+    url((r'^update/reporters/(?P<id_rep>.*)/$'), views.RepUpdate.as_view(), name='reporter_update'),
+    url((r'^delete/reporters/(?P<id_rep>.*)/$'), views.RepDelete.as_view(), name='reporter_delete'),
     url(r'^.*$', views.index, name='index')
     ]
 
-#(?P<test>.*)/
