@@ -1,5 +1,9 @@
 {% extends "base.html" %}
-{% block title %}Update :: Reporter {{object.full_name}}{% endblock %}
+{% block title %}Update :: {{model_name}} :: 
+
+{{object.full_name}}{{object.headline}}{{object.name}}
+
+{% endblock %}
 {% block main %}
 <form action="" method="post">
     {% csrf_token %}

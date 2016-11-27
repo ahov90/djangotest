@@ -22,8 +22,10 @@ app_name = 'page_app'
 urlpatterns = [
     url(r'^articles/?$', views.AllArticleView.as_view(), name='articles'),
     url(r'^articles/(?P<id_art>\d+)?/?(?P<page_num>\d+)?/?$', views.ArticleView.as_view(template_name = 'page/article.html'), name='article'),
+
     url(r'^reporters/$', views.AllReporterView.as_view(), name='reporters'),
     url(r'^reporters/(?P<id_rep>.*)/$', views.ReporterView.as_view(), name='reporter'),
+
     url(r'^persons/?$', views.AllPersonView.as_view(template_name = 'page/all_persons.html'), name='persones'),
     url(r'^persons/(?P<id_pers>\d+)?/?(?P<page>\d+)?/?$', views.PersonView.as_view(template_name = 'page/person.html'), name='persone'),
     # неименованная группа. Соответствует закомментированной строке в TestView self.test_list.append(self.args[0])
@@ -32,9 +34,19 @@ urlpatterns = [
     #url(r'^testing/(\d+)/$', views.TestView.as_view(), name='testing'),
     url(r'^testing/(?P<test>\d+)/$', views.TestView.as_view(), name='testing'),
     url(r'^cbv/$',  views.CbvView.as_view(template_name = 'page/cbv.html'), name='cbv'),
+
     url((r'^add/reporters/$'), views.RepCreate.as_view(), name='reporter_add'),
     url((r'^update/reporters/(?P<id_rep>.*)/$'), views.RepUpdate.as_view(), name='reporter_update'),
     url((r'^delete/reporters/(?P<id_rep>.*)/$'), views.RepDelete.as_view(), name='reporter_delete'),
+
+    url((r'^add/articles/$'), views.ArtCreate.as_view(), name='article_add'),
+    url((r'^update/articles/(?P<id_art>\d+)/$'), views.ArtUpdate.as_view(), name='article_update'),
+    url((r'^delete/articles/(?P<id_art>\d+)/$'), views.ArtDelete.as_view(), name='article_delete'),
+
+    url((r'^add/persones/$'), views.PersCreate.as_view(), name='person_add'),
+    url((r'^update/persones/(?P<id_pers>\d+)/$'), views.PersUpdate.as_view(), name='person_update'),
+    url((r'^delete/persones/(?P<id_pers>\d+)/$'), views.PersDelete.as_view(), name='person_delete'),
+
     url(r'^.*$', views.index, name='index')
     ]
 

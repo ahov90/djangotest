@@ -9,16 +9,18 @@ from django.views.generic.dates import ArchiveIndexView, YearArchiveView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, ProcessFormView
 from django.core.urlresolvers import reverse, reverse_lazy
 
+
+
+
+
+
+# Create your views here.
+
 class AllListMixin (ContextMixin):
     def get_context_data (self, **kwargs):
        context = super(AllListMixin, self).get_context_data(**kwargs)
        context['all_list'] = whole_list()
        return context
-
-
-# Create your views here.
-
-
 
 
 
@@ -266,10 +268,14 @@ class RepEditView (ProcessFormView):
 
         return super(RepEditView, self).post(request, *args, **kwargs)
 '''
-class RepCreate (CreateView):
+class RepCreate (CreateView, AllListMixin):
     model = Reporter
     fields = ['full_name', 'weight', 'height', 'wage', 'work_begin']
-    template_name = 'page/rep_add.html'
+    template_name = 'page/add.html'
+
+    def get_success_url(self):
+        return reverse('page_app:reporter', kwargs={'id_rep': self.object.id})
+
     #success_url = reverse_lazy('page_app:reporters') взаимозаменяемо с self.success_url из def post
     '''
     def get (self, request, *args, **kwargs):   #нужна только для initial значенией в полях
@@ -278,39 +284,118 @@ class RepCreate (CreateView):
 
     def post(self, request, *args, **kwargs):
         #  self.success_url = reverse('page_app:reporter') #не работает с kwargs
-        return super(RepCreate, self).post(request, *args, **kwargs)'''
-
+        return super(RepCreate, self).post(request, *args, **kwargs)
+'''
     def get_context_data(self, **kwargs):
         context = super(RepCreate, self).get_context_data(**kwargs)
-        context['all_list'] = whole_list()
+        context['model_name'] = 'Reporter'
         return context
+
+
+class RepUpdate(UpdateView, AllListMixin):
+    model = Reporter
+    fields = ['full_name', 'weight', 'height', 'wage', 'work_begin']
+    template_name = 'page/update.html'
+    pk_url_kwarg = 'id_rep'
 
     def get_success_url(self):
         return reverse('page_app:reporter', kwargs={'id_rep': self.object.id})
-
-
-class RepUpdate(UpdateView):
-    model = Reporter
-    fields = ['full_name', 'weight', 'height', 'wage', 'work_begin']
-    template_name = 'page/rep_update.html'
-    pk_url_kwarg = 'id_rep'
 
     def get_context_data(self, **kwargs):
         context = super(RepUpdate, self).get_context_data(**kwargs)
-        context['all_list'] = whole_list()
+        context['model_name'] = 'Reporter'
         return context
 
-    def get_success_url(self):
-        return reverse('page_app:reporter', kwargs={'id_rep': self.object.id})
-
-class RepDelete(DeleteView):
+class RepDelete(DeleteView, AllListMixin):
     model = Reporter
     fields = ['full_name', 'weight', 'height', 'wage', 'work_begin']
-    template_name = 'page/rep_delete.html'
+    template_name = 'page/delete.html'
     pk_url_kwarg = 'id_rep'
     success_url = reverse_lazy('page_app:reporters')
 
     def get_context_data(self, **kwargs):
         context = super(RepDelete, self).get_context_data(**kwargs)
-        context['all_list'] = whole_list()
+        context['model_name'] = 'Reporter'
         return context
+
+
+
+class ArtCreate (CreateView, AllListMixin):
+    model = Article
+    fields = ['headline', 'pub_date', 'content', 'reporter']
+    template_name = 'page/add.html'
+
+    def get_success_url(self):
+        return reverse('page_app:article', kwargs={'id_art': self.object.id})
+
+    def get_context_data(self, **kwargs):
+        context = super(ArtCreate, self).get_context_data(**kwargs)
+        context['model_name'] = 'Article'
+        return context
+
+
+class ArtUpdate(UpdateView, AllListMixin):
+    model = Article
+    fields = ['headline', 'pub_date', 'content', 'reporter']
+    template_name = 'page/update.html'
+    pk_url_kwarg = 'id_art'
+
+    def get_success_url(self):
+        return reverse('page_app:article', kwargs={'id_art': self.object.id})
+
+    def get_context_data(self, **kwargs):
+        context = super(ArtUpdate, self).get_context_data(**kwargs)
+        context['model_name'] = 'Article'
+        return context
+
+class ArtDelete(DeleteView, AllListMixin):
+    model = Article
+    fields = ['headline', 'pub_date', 'content', 'reporter']
+    template_name = 'page/delete.html'
+    pk_url_kwarg = 'id_art'
+    success_url = reverse_lazy('page_app:articles')
+
+    def get_context_data(self, **kwargs):
+        context = super(ArtDelete, self).get_context_data(**kwargs)
+        context['model_name'] = 'Article'
+        return context
+
+class PersCreate (CreateView, AllListMixin):
+    model = Person
+    fields = ['name', 'article', 'born']
+    template_name = 'page/add.html'
+
+    def get_success_url(self):
+        return reverse('page_app:persone', kwargs={'id_pers': self.object.id})
+
+    def get_context_data(self, **kwargs):
+        context = super(PersCreate, self).get_context_data(**kwargs)
+        context['model_name'] = 'Person'
+        return context
+
+class PersUpdate(UpdateView, AllListMixin):
+    model = Person
+    fields = ['name', 'article', 'born']
+    template_name = 'page/update.html'
+    pk_url_kwarg = 'id_pers'
+
+    def get_success_url(self):
+        return reverse('page_app:persone', kwargs={'id_pers': self.object.id})
+
+    def get_context_data(self, **kwargs):
+        context = super(PersUpdate, self).get_context_data(**kwargs)
+        context['model_name'] = 'Persone'
+        return context
+
+class PersDelete(DeleteView, AllListMixin):
+    model = Person
+    fields = ['name', 'article', 'born']
+    template_name = 'page/delete.html'
+    pk_url_kwarg = 'id_pers'
+    success_url = reverse_lazy('page_app:persones')
+
+    def get_context_data(self, **kwargs):
+        context = super(PersDelete, self).get_context_data(**kwargs)
+        context['model_name'] = 'Persone'
+        return context
+

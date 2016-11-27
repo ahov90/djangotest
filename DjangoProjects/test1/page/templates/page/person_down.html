@@ -23,3 +23,5 @@
      </div>
 
        <a href = "{% url 'page_app:persones' %}"><h4>All persons</h4><a>
+            <p><a href = "{% url 'page_app:person_update' item.id %}"><i>Update</i></a>
+            <p> <a href = "{% url 'page_app:person_delete' item.id %}"><i>Delete</i></a>

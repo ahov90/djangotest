@@ -20,6 +20,9 @@
 
  <a href = "{% url 'page_app:article' %}" ><h4>All articles</h4></a>
 
+ <ul> <a href = "{% url 'page_app:article_update' art.id %}"><i>Update</i></a></ul>
+ <ul> <a href = "{% url 'page_app:article_delete' art.id %}"><i>Delete</i></a></ul>
+
      <div id="page_number">
           {% if pers_list.has_previous %}
              <b><a href = "{% url 'page_app:article' art.id  %}/{{pers_list.previous_page_number}}/">&lt;&nbsp;{{pers_list.previous_page_number}}</a></b>
@@ -31,5 +34,6 @@
              <b><a href = "{% url 'page_app:article' art.id  %}/{{pers_list.next_page_number}}/">{{pers_list.next_page_number}}&nbsp;&gt;</a></b>
           {% endif %}
      </div>
+
 {% endblock %}
 
